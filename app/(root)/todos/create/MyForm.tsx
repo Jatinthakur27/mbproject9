@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -16,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useKindeAuth } from "@kinde-oss/kinde-auth-nextjs";
 import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   title: z.string().min(0),
@@ -23,6 +23,7 @@ const formSchema = z.object({
 });
 
 export default function MyForm() {
+  const { toast } = useToast();
   const { user } = useKindeAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -37,9 +38,19 @@ export default function MyForm() {
       };
 
       await axios.post("/api/todos", newTodo);
+
+      toast({
+        title: "Create Todo",
+        description: "Successfully created a todo.",
+      });
+
+      form.reset();
     } catch (error) {
       console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      toast({
+        variant: "destructive",
+        description: "Something went wrong. Please try again.",
+      });
     }
   }
 
@@ -47,7 +58,7 @@ export default function MyForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 max-w-3xl mx-auto py-10"
+        className="space-y-8 max-w-3xl py-10 m-4 sm:m-6 md:m-8"
       >
         <FormField
           control={form.control}
@@ -56,7 +67,12 @@ export default function MyForm() {
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input placeholder="title" type="text" {...field} />
+                <Input
+                  placeholder="title"
+                  type="text"
+                  {...field}
+                  value={field.value || ""}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,6 +89,7 @@ export default function MyForm() {
                   placeholder="description"
                   className="resize-none"
                   {...field}
+                  value={field.value || ""}
                 />
               </FormControl>
 
