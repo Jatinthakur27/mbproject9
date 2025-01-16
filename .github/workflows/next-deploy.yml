@@ -24,10 +24,11 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm install --force
-          npm run build
-          mv ./build/static ./build/standalone/build
-          mv ./public ./build/standalone
+          npm install --legacy-peer-deps
+          npm run dev
+          # npm run build
+          # mv ./build/static ./build/standalone/build
+          # mv ./public ./build/standalone
 
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
