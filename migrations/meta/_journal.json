@@ -15,6 +15,27 @@
       "when": 1737025197164,
       "tag": "0001_wakeful_jigsaw",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1737026552897,
+      "tag": "0002_closed_rocket_racer",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1737028199191,
+      "tag": "0003_lazy_firebrand",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1737028242191,
+      "tag": "0004_parallel_warbound",
+      "breakpoints": true
     }
   ]
 }
