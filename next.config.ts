@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  reactStrictMode: true,
+  distDir: "build",
+  output: "standalone",
 };
 
 export default nextConfig;
